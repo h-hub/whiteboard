@@ -1,5 +1,6 @@
 	var socket = io();
 	var drawingRoom;
+
 	socket.emit('join', {username: sessionStorage.getItem('username')});
 
     var lc = LC.init(
@@ -28,7 +29,7 @@
 	function onMouseUp(e){
 		drawingRoom = sessionStorage.getItem('username').concat(document.getElementById("patner").value);
 		setTimeout(function() {
-		    socket.emit('drawing', {data: lc.getSnapshot(['shapes']), username: "drawingRoom"} );
+		    socket.emit('drawing', {data: lc.getSnapshot(['shapes']), username: sessionStorage.getItem('drawingRoom') } );
 		}, (200));
 		
 	}
@@ -44,6 +45,7 @@
 			$("#acceptBtn").append(btn);
 			console.log(data);
 		}
+		sessionStorage.setItem('drawingRoom', data.room);
 	});
 
 
@@ -53,11 +55,13 @@
 
 	function invite(){
 		drawingRoom = sessionStorage.getItem('username').concat(document.getElementById("patner").value);
-		socket.emit('joindrawing', {username :  "drawingRoom"});
-		socket.emit('new_msg', {invite: true, name: document.getElementById("patner").value});
+		sessionStorage.setItem('partnerName', document.getElementById("patner").value);
+		sessionStorage.setItem('drawingRoom', drawingRoom);
+
+		socket.emit('joindrawing', { username :  drawingRoom });
+		socket.emit('new_msg', {invite: true, name: sessionStorage.getItem('partnerName'), room: drawingRoom });
 	}
 
 	function accept(){
-		drawingRoom = sessionStorage.getItem('username').concat(document.getElementById("patner").value);
-		socket.emit('joindrawing', {username : "drawingRoom" });
+		socket.emit('joindrawing', {username : sessionStorage.getItem('drawingRoom') });
 	}
