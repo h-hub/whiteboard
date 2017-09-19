@@ -6,11 +6,11 @@ html
     link(rel='stylesheet', href='/literallycanvas-0.4.14/css/literallycanvas.css')
 
     
-  body
+  body(onload='getUserDetails()')
     block content
     script(src='https://code.jquery.com/jquery-3.2.1.min.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-with-addons.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js')
     script(src='/literallycanvas-0.4.14/js/literallycanvas.js')
     script(src='/scripts/socket.io-client/dist/socket.io.js')
-    script(src='/javascripts/main.js')
+    script(src='/javascripts/home.js')

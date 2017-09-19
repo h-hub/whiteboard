@@ -1,7 +1,12 @@
-extends layout
+extends home_layout
 
 block content
   h1= title
+  p#username Hi
   p Welcome to #{title}
   input#patner(type='text', placeholder='Type Partner Name')
+  button(onclick='invite()') Invite
+  br
+  |   Invitaions :
+  #acceptBtn
   div(class='my-drawing')
