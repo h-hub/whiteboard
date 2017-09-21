@@ -2,6 +2,12 @@
 	var drawingRoom;
 
 	socket.emit('join', {username: sessionStorage.getItem('username')});
+	if(sessionStorage.getItem('drawingRoom')){
+		socket.emit('joindrawing', { username :  sessionStorage.getItem('drawingRoom') });
+		$("#accept_btn").remove();
+	}
+
+
 
     var lc = LC.init(
       	document.getElementsByClassName('my-drawing')[0],
@@ -41,7 +47,7 @@
 
 	socket.on('new_msg', function(data){
 		if(data.invite){
-			var btn = "<button onclick='accept()'>Accept</button>";
+			var btn = "<button is='accept_btn' onclick='accept()'>Accept</button>";
 			$("#acceptBtn").append(btn);
 			console.log(data);
 		}
