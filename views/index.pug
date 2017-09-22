@@ -2,10 +2,11 @@ extends index_layout
 
 block content
   h1= title
-  p Welcome to #{title}
   div(class='login')
   form
-   .form-group
+   #login-form.form-group
      label(for='username') Username
      input#username.form-control(type='text', placeholder='Username', onclick="invite()")
-   button.btn.btn-default(type='submit', onclick="joinRoom(document.getElementById('username').value)") Submit 
+   p#welcome-message
+   a#login-btn.btn.btn-default(type='submit', onclick="joinRoom(document.getElementById('username').value)", href='home') Submit 
+   a#home-btn(style='display:none', href='home') Home

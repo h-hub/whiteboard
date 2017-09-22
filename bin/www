@@ -37,13 +37,28 @@ io.on('connection', function (socket) {
   });
 
   socket.on('drawing', function(data){
-    console.log(data);
     io.sockets.in(data.username).emit('drawing', data.data);
-    //io.emit('drawing', data.data);
   });
 
   socket.on('new_msg', function(data){
-    io.sockets.in(data.name).emit('new_msg', { invite : data.invite, room : data.room } );
+    if(io.sockets.adapter.rooms[data.name]){
+      io.sockets.in(data.name).emit('new_msg', { invite : data.invite, room : data.room } );
+    }
+  });
+
+  socket.on('base64 file', function (msg) {
+    console.log('received base64 file from' + msg.username);
+    socket.username = msg.username;
+    // socket.broadcast.emit('base64 image', //exclude sender
+    io.sockets.emit('base64 file',  //include sender
+
+          {
+            username: socket.username,
+            file: msg.file,
+            fileName: msg.fileName
+          }
+
+      );
   });
 
 });

@@ -7,7 +7,7 @@ router.get('/home', function(req, res, next) {
 });
 
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'White Board' });
+  res.render('index', { title: 'White Board Login' });
 });
 
 module.exports = router;
